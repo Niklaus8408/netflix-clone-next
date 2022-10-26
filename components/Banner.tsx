@@ -4,6 +4,8 @@ import Image from 'next/image'
 import { baseUrl } from '../constants/movie';
 import {BsFillPlayFill} from 'react-icons/bs';
 import {MdInfo} from 'react-icons/md';
+import {modalState, movieState} from '../atoms/modalAtom';
+import {useRecoilState} from 'recoil';
 
 interface Props {
     netflixOriginals: Movie[]
@@ -11,6 +13,8 @@ interface Props {
 
 function Banner({ netflixOriginals }: Props) {
     const [movie, setMovie] = useState<Movie | null>(null)
+    const [currentMovie, setCurrentMovie] = useRecoilState(movieState);
+    const [showModal, setShowModal] = useRecoilState(modalState);
 
     useEffect(() => {
         setMovie(
@@ -42,7 +46,12 @@ function Banner({ netflixOriginals }: Props) {
             Play
           </button>
 
-          <button className='bannerButton bg-gray-400 text-white'>
+          <button 
+            onClick={() => {
+              setCurrentMovie(movie)
+              setShowModal(true)
+            }}
+            className='bannerButton bg-gray-400 text-white'>
             <MdInfo />
             More Info
           </button>

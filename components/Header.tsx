@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { FiSearch } from 'react-icons/fi';
 import { FaBell, FaUserCircle } from 'react-icons/fa';
-import Link from 'next/link';
+import useAuth from '../hooks/useAuth';
 
 function Header() {
 
     const [isScrolled, setIsScrolled] = useState(false);
+    const {logout} = useAuth();
 
     useEffect(() =>{
         const handleScroll = () => {
@@ -47,9 +48,9 @@ function Header() {
             <FiSearch className='h-6 w-6' />
             <p className='hidden lg:inline'>Kids</p>
             <FaBell className='h-6 w-6' />
-            <Link href="/account">
-                <FaUserCircle className="cursor-pointer h-6 w-6" />
-            </Link>
+            {/* <Link href="/account"> */}
+                <FaUserCircle onClick={logout} className="cursor-pointer h-6 w-6" />
+            {/* </Link> */}
         </div>
     </header>
   )
